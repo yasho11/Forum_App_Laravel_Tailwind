@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Forum</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -15,7 +15,7 @@
                 <span class="block sm:inline">{{ session('success') }}</span>
             </div>
         @endif
-
+            <!--The logout menu--->
         @auth
             <div class="bg-white p-6 rounded-lg shadow-lg text-center">
                 <p class="mb-4">Congrats, you are logged in!</p>
@@ -25,22 +25,34 @@
                 </form>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                
+                <!---Create Menu Post-->
                 <h2>Create a New Post</h2>
                 <form action="/create-post" method="POST">
                     @csrf
                     <div>
                         <label for="Title" class="block text-sm font-medium">Title</label>
-                        <input name="name" type="text" placeholder="" required class="mt-1 p-2 w-full border rounded">
+                        <input name="title" type="text" placeholder="Title" required class="mt-1 p-2 w-full border rounded">
                     </div>
                     <div>
-                        <label for="name" class="block text-sm font-medium">Name</label>
-                        <input name="name" type="text" placeholder="Name" required class="mt-1 p-2 w-full border rounded">
+                        <label for="body" class="block text-sm font-medium">Body</label>
+                        <textarea name="body" placeholder="Content here ....." required class="mt-1 p-2 w-full border rounded"></textarea>
                     </div>
-                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Log Out</button>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 mt-5">Create Post</button>
                 </form>
             </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <!---View Post-->
+                <h2>All Posts</h2>
+                @foreach ($posts as $post)
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center mt-6">
+                    <h3> {{$post['title']}}</h3>
+                    {{$post['body']}}
+                </div>
+                    
+                @endforeach
+            </div>
         @else
+        <!--Login and register part-->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-semibold mb-4">Register</h2>
                 <form action="/register" method="POST" class="space-y-4">
